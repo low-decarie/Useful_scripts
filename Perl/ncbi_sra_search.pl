@@ -111,7 +111,7 @@ sub read_params {
 # the id parameters. This allows multiple &id parameters
 # Input: file named on command line
 # Output: %params; keys are parameter names, values are values
-# Example: $params{db} = 'nucleotide'
+# Example: $params{db} = 'sra'
 # $params{id} is an array if "dbfrom" parameter is in input file
 
 my ($param, $value);
