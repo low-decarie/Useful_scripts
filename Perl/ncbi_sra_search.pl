@@ -85,15 +85,16 @@ my $base = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
 #** SCRIPT MAIN BODY *****************************************
 
 $params{email} = "etienne.low-decarie@mail.mcgill.ca";
-$params{db} = "nuccore";
+$params{db} = "sra";
 $params{tool} = "ebot";
 $params{term} = $query;
 %params = esearch(%params);
 
-$params{retmode} = "text";
-$params{outfile} = $outfile;
-$params{rettype} = "fasta";
+$params{retmode} = "xml";
+$params{outfile} = "$outfile";
+$params{rettype} = "full";
 efetch_batch(%params);
+
 
 #** END SCRIPT MAIN BODY ************************************
 #************************************************************

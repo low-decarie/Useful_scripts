@@ -1,2 +1,4 @@
 To make executable
 chmod -R u+x Useful_scripts
+
+and add path to ~/.bash_profile

@@ -1,0 +1,1 @@
+java -jar xml2csv-conv.jar %*

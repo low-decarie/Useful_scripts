@@ -11,8 +11,9 @@ my $srchFile=$ARGV[1];
 #http://stackoverflow.com/a/15845878/742447
 
 #Usage
-#perl compare_sequences.pl words sentences;
+#perl compare_sequences.pl environmental_amplicon reference_sequence;
 #(don't forget the semicolon in perl)
+#This is adapted for fasta and fna files first converted to csv
 
 
 #This script compares sequence data found in
@@ -24,24 +25,22 @@ my $srchFile=$ARGV[1];
 
 #It uses hash tables to accelerate the search
 
-
-
-
-
 # Load sequence dictionary into hash table
 my %dict=();
 my %sizes=();
 open($df, "<$dictFile") or die "Cannot open $dictFile";
 while (<$df>) {
   chomp;
-  $dict{lc($_)}=1;
-  $sizes{length($_)}=1;
+  my ($enviroamplicondescription, $enviroamplicon)=split(/\s*,\s*/);
+  $dict{lc($enviroamplicon)}=$enviroamplicondescription;
+  $sizes{length($enviroamplicon)}=1;
+  #print "$enviroamplicondescription";
 }
 
-print "Sizes:";
-print Dumper(\%sizes);
-print "Dictionary:";
-print Dumper(\%dict);
+#print "Sizes:";
+#print Dumper(\%sizes);
+#print "Dictionary:";
+#print Dumper(\%dict);
 
 # Search file for known sequences
 open($sf, "<$srchFile") or die "Cannot open $srchFile";
@@ -57,13 +56,14 @@ while ($line=<$sf>) {
     }
   }
   
-  print "\nSequences:";
-  print Dumper(\%sequences);
-  
+#  print "\nSequences:";
+#  print Dumper(\%sequences);
+    
+    
   # Compare each sequence with the dictionary of sequences.
   while ( my ($sequence) = each(%sequences) ) {
     if ($dict{$sequence}) {
-      print "$sequence, $line\n";
+      print "$dict{$sequence}, $sequence, $line\n";
     }
   }
 }
