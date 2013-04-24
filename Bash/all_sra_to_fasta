@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sra_files=`find . -name "*.sra"`
+
+for file in `echo "$sra_files"`
+do
+    echo $file
+    fastq-dump $file
+    file_name=`echo $file | sed 's/\.sra//g'`\
+    prinseq-lite.pl -fastq $file_name.fastq -out_format 1 -out_good $file_name
+    rm $file_name.fastq
+    
+done
